@@ -16,5 +16,16 @@ namespace pryPonceDeLeonMartina
         {
             InitializeComponent();
         }
+
+        private void nuevoToolStripButton_Click(object sender, EventArgs e)
+        {
+            frmFirma frmFirma = new frmFirma();
+            frmFirma.Show();
+        }
+
+        private void frmMain_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
