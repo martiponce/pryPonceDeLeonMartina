@@ -42,8 +42,8 @@
             picFirma.Size = new Size(610, 558);
             picFirma.TabIndex = 0;
             picFirma.TabStop = false;
-            picFirma.Paint += picFirma_Paint;
-            picFirma.MouseMove += picFirma_MouseMove;
+ //           picFirma.Paint += picFirma_Paint;
+          picFirma.MouseMove += picFirma_MouseMove;
             // 
             // btnGuardar
             // 
@@ -78,8 +78,8 @@
             Name = "frmFirma";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Dibujar Firma";
-            Load += frmFirma_Load;
-            MouseMove += frmFirma_MouseMove;
+ //           Load += frmFirma_Load;
+ //           MouseMove += frmFirma_MouseMove;
             ((System.ComponentModel.ISupportInitialize)picFirma).EndInit();
             ResumeLayout(false);
         }
