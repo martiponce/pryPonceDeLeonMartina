@@ -28,28 +28,28 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmFirma));
             picFirma = new PictureBox();
             btnGuardar = new Button();
-            button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)picFirma).BeginInit();
             SuspendLayout();
             // 
             // picFirma
             // 
-            picFirma.BackColor = SystemColors.ActiveCaptionText;
+            picFirma.BackColor = Color.Thistle;
             picFirma.Location = new Point(12, 12);
             picFirma.Name = "picFirma";
             picFirma.Size = new Size(610, 558);
             picFirma.TabIndex = 0;
             picFirma.TabStop = false;
- //           picFirma.Paint += picFirma_Paint;
-          picFirma.MouseMove += picFirma_MouseMove;
+            picFirma.MouseMove += picFirma_MouseMove;
             // 
             // btnGuardar
             // 
-            btnGuardar.BackColor = Color.Plum;
+            btnGuardar.BackColor = Color.Thistle;
             btnGuardar.FlatAppearance.BorderColor = Color.FromArgb(192, 0, 192);
-            btnGuardar.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            btnGuardar.FlatStyle = FlatStyle.Popup;
+            btnGuardar.Font = new Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point);
             btnGuardar.Location = new Point(547, 576);
             btnGuardar.Name = "btnGuardar";
             btnGuardar.Size = new Size(75, 23);
@@ -58,28 +58,18 @@
             btnGuardar.UseVisualStyleBackColor = false;
             btnGuardar.Click += btnGuardar_Click;
             // 
-            // button1
-            // 
-            button1.Location = new Point(12, 576);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 2;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
-            // 
             // frmFirma
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(634, 611);
-            Controls.Add(button1);
             Controls.Add(btnGuardar);
             Controls.Add(picFirma);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "frmFirma";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Dibujar Firma";
- //           Load += frmFirma_Load;
- //           MouseMove += frmFirma_MouseMove;
             ((System.ComponentModel.ISupportInitialize)picFirma).EndInit();
             ResumeLayout(false);
         }
@@ -88,6 +78,5 @@
 
         private PictureBox picFirma;
         private Button btnGuardar;
-        private Button button1;
     }
 }
