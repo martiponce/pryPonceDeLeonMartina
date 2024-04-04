@@ -7,59 +7,55 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace pryPonceDeLeonMartina
 {
     public partial class frmFirma : Form
     {
+        //Declaro el cmpo
+        //Bitmap alamcena la imagen donde se realiza el dibujo
         private Bitmap firma;
+        
         public frmFirma()
         {
             InitializeComponent();
+
+            
+            //ctor del formulario con el ancho y alto del control picFirma.
+            firma = new Bitmap(picFirma.Width, picFirma.Height);
         }
 
+      
+        //Método que se activa cuando se mueve el mouse
         private void picFirma_MouseMove(object sender, MouseEventArgs e)
         {
+            //aca digo que cuando el boton izq este apretado dibuje con color rosa en el pictureBox
             if (e.Button == MouseButtons.Left)
             {
-                
-                using(Graphics lapiz = Graphics.FromImage(firma))
+                //graphic es el obj que uso para dibujar
+                using (Graphics lapiz = Graphics.FromImage(firma))
                 {
-                    lapiz.FillEllipse(Brushes.White, e.X, e.Y, 5, 5);
+                    lapiz.FillEllipse(Brushes.DeepPink, e.X, e.Y, 5, 5);
                 }
 
-                picFirma.Invalidate();
-
+                //Asigno este Bitmap al Image del control picFirma, lo que actualiza la imagen que se muestra en el pictureBox
+                picFirma.Image = firma;
             }
         }
 
-        private void frmFirma_MouseMove(object sender, MouseEventArgs e)
-        {
-            
-        }
-
+        //Metodo para guardar cuando apreto el boton
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            firma.Save("Firma.png",System.Drawing.Imaging.ImageFormat.Jpeg);
-        }
 
-        private void picFirma_Paint(object sender, PaintEventArgs e)
-        {
-            try
+            //cuadro de texto al ser exitoso
+            MessageBox.Show("Firma guardada con éxito", "Guardado",MessageBoxButtons.OK, MessageBoxIcon.Information);
+
             {
-                e.Graphics.DrawImage(firma, Point.Empty);
+                //guarda el Bitmap firma como un archivo de imagen gracias al metodo Save
+                firma.Save("Firma.png", System.Drawing.Imaging.ImageFormat.Jpeg);
             }
-            catch (Exception)
-            {
-
-                //throw;
-            }
-            
         }
-
-        private void frmFirma_Load(object sender, EventArgs e)
-        {
-            firma = new Bitmap(picFirma);
-        }
+    
     }
 }
