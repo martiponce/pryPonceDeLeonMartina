@@ -31,15 +31,17 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmFirma));
             picFirma = new PictureBox();
             btnGuardar = new Button();
+            btnBorrar = new Button();
             ((System.ComponentModel.ISupportInitialize)picFirma).BeginInit();
             SuspendLayout();
             // 
             // picFirma
             // 
             picFirma.BackColor = Color.Thistle;
-            picFirma.Location = new Point(12, 12);
+            picFirma.Location = new Point(17, 20);
+            picFirma.Margin = new Padding(4, 5, 4, 5);
             picFirma.Name = "picFirma";
-            picFirma.Size = new Size(610, 558);
+            picFirma.Size = new Size(871, 930);
             picFirma.TabIndex = 0;
             picFirma.TabStop = false;
             picFirma.MouseMove += picFirma_MouseMove;
@@ -50,23 +52,41 @@
             btnGuardar.FlatAppearance.BorderColor = Color.FromArgb(192, 0, 192);
             btnGuardar.FlatStyle = FlatStyle.Popup;
             btnGuardar.Font = new Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            btnGuardar.Location = new Point(547, 576);
+            btnGuardar.Location = new Point(781, 966);
+            btnGuardar.Margin = new Padding(4, 5, 4, 5);
             btnGuardar.Name = "btnGuardar";
-            btnGuardar.Size = new Size(75, 23);
+            btnGuardar.Size = new Size(107, 38);
             btnGuardar.TabIndex = 1;
             btnGuardar.Text = "Guardar";
             btnGuardar.UseVisualStyleBackColor = false;
             btnGuardar.Click += btnGuardar_Click;
             // 
+            // btnBorrar
+            // 
+            btnBorrar.BackColor = Color.Thistle;
+            btnBorrar.FlatAppearance.BorderColor = Color.FromArgb(192, 0, 192);
+            btnBorrar.FlatStyle = FlatStyle.Popup;
+            btnBorrar.Font = new Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            btnBorrar.Location = new Point(17, 960);
+            btnBorrar.Margin = new Padding(4, 5, 4, 5);
+            btnBorrar.Name = "btnBorrar";
+            btnBorrar.Size = new Size(107, 38);
+            btnBorrar.TabIndex = 2;
+            btnBorrar.Text = "Borrar";
+            btnBorrar.UseVisualStyleBackColor = false;
+            btnBorrar.Click += btnBorrar_Click;
+            // 
             // frmFirma
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
-            ClientSize = new Size(634, 611);
+            ClientSize = new Size(906, 1018);
+            Controls.Add(btnBorrar);
             Controls.Add(btnGuardar);
             Controls.Add(picFirma);
             Icon = (Icon)resources.GetObject("$this.Icon");
+            Margin = new Padding(4, 5, 4, 5);
             Name = "frmFirma";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Dibujar Firma";
@@ -78,5 +98,6 @@
 
         private PictureBox picFirma;
         private Button btnGuardar;
+        private Button btnBorrar;
     }
 }
