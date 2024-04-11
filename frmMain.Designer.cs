@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             toolStrip2 = new ToolStrip();
             toolStripButton1 = new ToolStripButton();
+            toolStripSeparator1 = new ToolStripSeparator();
             toolStripButton2 = new ToolStripButton();
             toolStripButton3 = new ToolStripButton();
             toolStripButton4 = new ToolStripButton();
@@ -38,7 +39,6 @@
             toolStripButton5 = new ToolStripButton();
             toolStripButton6 = new ToolStripButton();
             toolStripSeparator3 = new ToolStripSeparator();
-            toolStripSeparator1 = new ToolStripSeparator();
             toolStrip2.SuspendLayout();
             SuspendLayout();
             // 
@@ -66,6 +66,12 @@
             toolStripButton1.Size = new Size(64, 64);
             toolStripButton1.Text = "&Firma";
             // 
+            // toolStripSeparator1
+            // 
+            toolStripSeparator1.ForeColor = SystemColors.ActiveCaptionText;
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new Size(6, 69);
+            // 
             // toolStripButton2
             // 
             toolStripButton2.DisplayStyle = ToolStripItemDisplayStyle.Image;
@@ -74,6 +80,7 @@
             toolStripButton2.Name = "toolStripButton2";
             toolStripButton2.Size = new Size(64, 64);
             toolStripButton2.Text = "&Abrir";
+            toolStripButton2.Click += toolStripButton2_Click;
             // 
             // toolStripButton3
             // 
@@ -120,12 +127,6 @@
             // 
             toolStripSeparator3.Name = "toolStripSeparator3";
             toolStripSeparator3.Size = new Size(6, 69);
-            // 
-            // toolStripSeparator1
-            // 
-            toolStripSeparator1.ForeColor = SystemColors.ActiveCaptionText;
-            toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(6, 69);
             // 
             // frmMain
             // 
