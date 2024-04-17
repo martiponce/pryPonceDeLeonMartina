@@ -29,38 +29,40 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmJuego));
-            txtScore = new TextBox();
-            SuspendLayout();
+            this.txtScore = new System.Windows.Forms.TextBox();
+            this.SuspendLayout();
             // 
             // txtScore
             // 
-            txtScore.BackColor = Color.Black;
-            txtScore.BorderStyle = BorderStyle.None;
-            txtScore.Enabled = false;
-            txtScore.Font = new Font("Copperplate Gothic Light", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            txtScore.ForeColor = SystemColors.InactiveBorder;
-            txtScore.Location = new Point(-2, 876);
-            txtScore.Name = "txtScore";
-            txtScore.Size = new Size(198, 22);
-            txtScore.TabIndex = 0;
-            txtScore.Text = "Score: ";
+            this.txtScore.BackColor = System.Drawing.Color.Black;
+            this.txtScore.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtScore.Enabled = false;
+            this.txtScore.Font = new System.Drawing.Font("Copperplate Gothic Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txtScore.ForeColor = System.Drawing.SystemColors.InactiveBorder;
+            this.txtScore.Location = new System.Drawing.Point(1, 687);
+            this.txtScore.Margin = new System.Windows.Forms.Padding(2);
+            this.txtScore.Name = "txtScore";
+            this.txtScore.Size = new System.Drawing.Size(139, 15);
+            this.txtScore.TabIndex = 0;
+            this.txtScore.Text = "Score: ";
             // 
             // frmJuego
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
-            AutoScaleMode = AutoScaleMode.Font;
-            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
-            ClientSize = new Size(600, 900);
-            Controls.Add(txtScore);
-            FormBorderStyle = FormBorderStyle.None;
-            Icon = (Icon)resources.GetObject("$this.Icon");
-            Name = "frmJuego";
-            StartPosition = FormStartPosition.CenterScreen;
-            Text = "Juego";
-            Load += frmJuego_Load;
-            KeyDown += frmJuego_KeyDown;
-            ResumeLayout(false);
-            PerformLayout();
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.ClientSize = new System.Drawing.Size(700, 700);
+            this.Controls.Add(this.txtScore);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Name = "frmJuego";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Juego";
+            this.Load += new System.EventHandler(this.frmJuego_Load_1);
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion

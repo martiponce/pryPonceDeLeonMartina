@@ -11,10 +11,10 @@ namespace pryPonceDeLeonMartina
     internal class clsNave
     {
         public int Vida { get; set; }
-        public string Nombre { get; set; }
+        public string? Nombre { get; set; }
         public int PuntosDanho { get; set; }
         public int Score { get; set; }
-        public PictureBox imgNave { get; set; }
+        public PictureBox? imgNave { get; set; }
         private Random aleatorioEnemigo = new Random();
 
         public void CrearJugador()
@@ -25,7 +25,7 @@ namespace pryPonceDeLeonMartina
             Score = 0;
             imgNave = new PictureBox();
             imgNave.SizeMode = PictureBoxSizeMode.StretchImage;
-            imgNave.ImageLocation = "C:\\Users\\marpo\\source\\repos\\pryPonceDeLeonMartina\\img\\Nave.png";
+            imgNave.ImageLocation = Path.Combine(Application.StartupPath, "img", "Nave.png");
         }
 
         public void CrearEnemigo()
@@ -45,7 +45,7 @@ namespace pryPonceDeLeonMartina
                     PuntosDanho = 2;
                     imgNave = new PictureBox();
                     imgNave.SizeMode = PictureBoxSizeMode.StretchImage;
-                    imgNave.ImageLocation = "C:\\Users\\marpo\\source\\repos\\pryPonceDeLeonMartina\\img\\enemigos.png";
+                    imgNave.ImageLocation = Path.Combine(Application.StartupPath, "img", "enemigos.png");
                     break;
 
                 case 2:
@@ -55,7 +55,7 @@ namespace pryPonceDeLeonMartina
                     PuntosDanho = 2;
                     imgNave = new PictureBox();
                     imgNave.SizeMode = PictureBoxSizeMode.StretchImage;
-                    imgNave.ImageLocation = "C:\\Users\\marpo\\source\\repos\\pryPonceDeLeonMartina\\img\\enemigos.png";
+                    imgNave.ImageLocation = Path.Combine(Application.StartupPath, "img", "enemigos.png");
                     break;
             }
         }

@@ -32,7 +32,7 @@ namespace pryPonceDeLeonMartina
             // Instanciar el jugador (Nave)
             objNaveJugador = new clsNave();
             objNaveJugador.CrearJugador();
-            objNaveJugador.imgNave.Location = new Point(275, 800);
+            objNaveJugador.imgNave.Location = new Point(350, 650);
             Controls.Add(objNaveJugador.imgNave);
 
             // Instanciar los enemigos
@@ -59,6 +59,20 @@ namespace pryPonceDeLeonMartina
                     objNaveJugador.imgNave.Location.Y);
             }
             if (e.KeyCode == Keys.Left)
+            {
+
+                objNaveJugador.imgNave.Location = new Point(
+                    objNaveJugador.imgNave.Location.X - 6,
+                    objNaveJugador.imgNave.Location.Y);
+            }
+            if (e.KeyCode == Keys.Up)
+            {
+
+                objNaveJugador.imgNave.Location = new Point(
+                    objNaveJugador.imgNave.Location.X,
+                    objNaveJugador.imgNave.Location.Y +6);
+            }
+            if (e.KeyCode == Keys.Down)
             {
 
                 objNaveJugador.imgNave.Location = new Point(
@@ -94,6 +108,11 @@ namespace pryPonceDeLeonMartina
             //gameOver = false;
             //objNaveJugador.crearEnemigo();
             
+        }
+
+        private void frmJuego_Load_1(object sender, EventArgs e)
+        {
+
         }
     }
 }
