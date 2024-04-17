@@ -112,6 +112,11 @@ namespace pryPonceDeLeonMartina
 
         private void frmJuego_Load_1(object sender, EventArgs e)
         {
+            // Instanciar el jugador (Nave)
+            objNaveJugador = new clsNave();
+            objNaveJugador.CrearJugador();
+            objNaveJugador.imgNave.Location = new Point(350, 650);
+            Controls.Add(objNaveJugador.imgNave);
 
         }
     }
