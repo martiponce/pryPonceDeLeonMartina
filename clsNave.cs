@@ -10,60 +10,118 @@ namespace pryPonceDeLeonMartina
 {
     internal class clsNave
     {
-        public int Vida { get; set; }
-        public string Nombre { get; set; }
-        public int PuntosDanho { get; set; }
-        public int Score { get; set; }
-        public PictureBox imgNave { get; set; }
-        private Random aleatorioEnemigo = new Random();
+        // Propiedades
+        public int vida;
+        public string nombre;
+        public int puntosDaño;
+        public PictureBox imgNave;
+        public PictureBox imgBala; 
+        Random aleatorioEnemigo = new Random();
 
-        public void CrearJugador()
+        //psc nave
+        public int PosX { get; set; }
+        public int PosY { get; set; }
+
+        public void crearJugador()
         {
-            Vida = 100;
-            Nombre = "Jugador 1";
-            PuntosDanho = 1;
-            Score = 0;
+            vida = 100;
+            nombre = "jugador1";
+            puntosDaño = 1;
             imgNave = new PictureBox();
             imgNave.SizeMode = PictureBoxSizeMode.StretchImage;
-             imgNave.ImageLocation = Path.Combine(Application.StartupPath, "img", "Nave.png");
-            //imgNave.ImageLocation = "https://www.anaitgames.com/images/uploads/2016/10/mes_mini/mes-mini-galaga-1.png";
-
-
-
+            imgNave.ImageLocation = "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQgByBT5IiAT_a2x9pUVb4VMoOrlzHH7Jrzj-HB5jzHlR4lNLMS";
         }
 
-        public void CrearEnemigo()
+        // Método para mover la nave
+        public void MoverNave(int deltaX, int deltaY)
+        {
+            PosX += deltaX;
+            PosY += deltaY;
+            imgNave.Location = new Point(PosX, PosY);
+        }
+        public PictureBox CrearEnemigo()
         {
             int codigoEnemigo = aleatorioEnemigo.Next(0, 3);
+            PictureBox imgEnemigo = new PictureBox();
+            imgEnemigo.SizeMode = PictureBoxSizeMode.StretchImage;
 
             switch (codigoEnemigo)
             {
                 case 0:
-                    // No hacemos nada, podemos agregar más casos según necesitemos más tipos de enemigos
+                    vida = 25;
+                    nombre = "enemigo1";
+                    puntosDaño = 2;
+                    imgEnemigo.ImageLocation = "https://www.abrafersrl.com.ar/wp-content/uploads/77426324-1.jpg";
                     break;
 
                 case 1:
-                    // Enemigo tipo 1
-                    Vida = 25;
-                    Nombre = "Enemigo 1";
-                    PuntosDanho = 2;
-                    imgNave = new PictureBox();
-                    imgNave.SizeMode = PictureBoxSizeMode.StretchImage;
-                    //imgNave.ImageLocation = Path.Combine(Application.StartupPath, "img", "enemigos.png");
-                    imgNave.ImageLocation = "https://http2.mlstatic.com/D_NQ_NP_625512-MLA54022311912_022023-O.webp";
+                    vida = 20;
+                    nombre = "enemigo2";
+                    puntosDaño = 2;
+                    imgEnemigo.ImageLocation = "https://www.abrafersrl.com.ar/wp-content/uploads/77426324-1.jpg";
                     break;
 
                 case 2:
-                    // Enemigo tipo 2
-                    Vida = 25;
-                    Nombre = "Enemigo 2";
-                    PuntosDanho = 2;
-                    imgNave = new PictureBox();
-                    imgNave.SizeMode = PictureBoxSizeMode.StretchImage;
-                    // imgNave.ImageLocation = Path.Combine(Application.StartupPath, "img", "enemigos.png");
-                    imgNave.ImageLocation = "https://http2.mlstatic.com/D_NQ_NP_625512-MLA54022311912_022023-O.webp";
+                    vida = 20;
+                    nombre = "enemigo3";
+                    puntosDaño = 2;
+                    imgEnemigo.ImageLocation = "https://www.abrafersrl.com.ar/wp-content/uploads/77426324-1.jpg";
                     break;
+            }
+
+            // Posicion del enemig
+            imgEnemigo.Location = new Point(aleatorioEnemigo.Next(0, 700), aleatorioEnemigo.Next(0, 700));
+
+            return imgEnemigo;
+        }
+
+        public void InicializarBala()
+        {
+            imgBala = new PictureBox();
+            imgBala.SizeMode = PictureBoxSizeMode.StretchImage;
+            imgBala.ImageLocation = "https://static.vecteezy.com/system/resources/previews/029/284/186/original/bullet-bullet-bullet-icon-bullet-with-transparent-background-ai-generative-free-png.png";
+            imgBala.Visible = false;
+        }
+
+        public void Disparar()
+        {
+            if (imgBala != null && !imgBala.Visible)
+            {
+                // EPosicion bala incial
+                imgBala.Location = new Point(imgNave.Location.X + imgNave.Width / 2 - imgBala.Width / 2, imgNave.Location.Y);
+                imgBala.Visible = true;
+                imgBala.Parent = imgNave.Parent;
+            }
+        }
+
+        public void MoverBala(List<Control> enemigos)
+        {
+            if (imgBala != null && imgBala.Visible)
+            {
+                // Mover bala arriba
+                imgBala.Top -= 10; //velocidad
+
+                // colision
+                foreach (Control enemigo in enemigos)
+                {
+                    if (imgBala.Bounds.IntersectsWith(enemigo.Bounds))
+                    {
+                        
+                        enemigos.Remove(enemigo); // Remueve el enemigo de la lista
+                        enemigo.Dispose(); // Elimina el enemigo del formulario
+                        imgBala.Visible = false; // Oculta la bala al impactar
+                        break; // Sale del bucle 
+                    }
+                }
+
+                // Verifica si la bala ha salido de la pantalla y la oculta
+                if (imgBala.Top + imgBala.Height < 0)
+                {
+                    imgBala.Visible = false;
+                }
             }
         }
     }
 }
+
+
