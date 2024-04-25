@@ -61,7 +61,6 @@
             Text = "Juego";
             Load += frmJuego_Load_1;
             KeyDown += frmJuego_KeyDown_1;
- //           KeyPress += frmJuego_KeyPress;
             ResumeLayout(false);
             PerformLayout();
         }
