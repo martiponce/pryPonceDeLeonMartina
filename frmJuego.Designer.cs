@@ -29,22 +29,56 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmJuego));
-            txtScore = new TextBox();
+            pgbScore = new ProgressBar();
+            lblScore = new Label();
+            pgbVida = new ProgressBar();
+            lblVida = new Label();
             SuspendLayout();
             // 
-            // txtScore
+            // pgbScore
             // 
-            txtScore.BackColor = Color.Black;
-            txtScore.BorderStyle = BorderStyle.None;
-            txtScore.Enabled = false;
-            txtScore.Font = new Font("Copperplate Gothic Light", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            txtScore.ForeColor = SystemColors.InactiveBorder;
-            txtScore.Location = new Point(1, 687);
-            txtScore.Margin = new Padding(2);
-            txtScore.Name = "txtScore";
-            txtScore.Size = new Size(139, 15);
-            txtScore.TabIndex = 0;
-            txtScore.Text = "Score: ";
+            pgbScore.BackColor = SystemColors.ActiveCaptionText;
+            pgbScore.ForeColor = Color.Tomato;
+            pgbScore.Location = new Point(2, 5);
+            pgbScore.Maximum = 250;
+            pgbScore.Name = "pgbScore";
+            pgbScore.Size = new Size(143, 23);
+            pgbScore.TabIndex = 1;
+            pgbScore.Value = 250;
+            // 
+            // lblScore
+            // 
+            lblScore.AutoSize = true;
+            lblScore.BackColor = Color.Transparent;
+            lblScore.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            lblScore.ForeColor = Color.Transparent;
+            lblScore.Location = new Point(2, 30);
+            lblScore.Name = "lblScore";
+            lblScore.Size = new Size(48, 17);
+            lblScore.TabIndex = 2;
+            lblScore.Text = "SCORE";
+            // 
+            // pgbVida
+            // 
+            pgbVida.BackColor = SystemColors.ActiveCaptionText;
+            pgbVida.ForeColor = Color.Lime;
+            pgbVida.Location = new Point(545, 5);
+            pgbVida.Name = "pgbVida";
+            pgbVida.Size = new Size(143, 23);
+            pgbVida.TabIndex = 1;
+            pgbVida.Value = 100;
+            // 
+            // lblVida
+            // 
+            lblVida.AutoSize = true;
+            lblVida.BackColor = Color.Transparent;
+            lblVida.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            lblVida.ForeColor = Color.Transparent;
+            lblVida.Location = new Point(545, 30);
+            lblVida.Name = "lblVida";
+            lblVida.Size = new Size(40, 17);
+            lblVida.TabIndex = 2;
+            lblVida.Text = "VIDA";
             // 
             // frmJuego
             // 
@@ -52,7 +86,10 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(700, 700);
-            Controls.Add(txtScore);
+            Controls.Add(lblVida);
+            Controls.Add(lblScore);
+            Controls.Add(pgbVida);
+            Controls.Add(pgbScore);
             FormBorderStyle = FormBorderStyle.None;
             Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(2);
@@ -67,6 +104,9 @@
 
         #endregion
 
-        private TextBox txtScore;
+        private ProgressBar pgbScore;
+        private Label lblScore;
+        private ProgressBar pgbVida;
+        private Label lblVida;
     }
 }

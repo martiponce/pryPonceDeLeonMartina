@@ -19,7 +19,7 @@ namespace pryPonceDeLeonMartina
 
         private void toolStripButton2_Click(object sender, EventArgs e)
         {
-            frmJuego frm = new frmJuego();
+            frmInicioJuego frm = new frmInicioJuego();
             frm.Show();
         }
     }
