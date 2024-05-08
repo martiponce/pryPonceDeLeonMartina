@@ -25,7 +25,9 @@ namespace pryPonceDeLeonMartina
         private int vida = 100; // Valor inicial de la vida del jugador
         private int score = 250; // Valor inicial del score
         private string nombreJugador;
-        
+
+        List<PictureBox> enemigosEliminados = new List<PictureBox>();
+
 
 
         public frmJuego()
@@ -37,17 +39,17 @@ namespace pryPonceDeLeonMartina
             // Crear y configurar el jugador
             objNaveJugador = new clsNave();
             objNaveJugador.CrearJugador();
-            objNaveJugador.PosX = 350;
-            objNaveJugador.PosY = 650;
-            objNaveJugador.ImgNave.Location = new Point(objNaveJugador.PosX, objNaveJugador.PosY);
+            PosX = 350;
+            PosY = 650;
+            objNaveJugador.ImgNave.Location = new Point(PosX, PosY);
             Controls.Add(objNaveJugador.ImgNave);
+            pgbScore.Value = 0;
            
             // Actualizar las barras de progreso al inicio del juego
             pgbVida.Value = vida;
-            pgbScore.Value = score;
 
             objJefe = new clsNave();  // Inicializar el objeto objJefe
-            objNaveJugador.jugadorColisionado += ObjNaveJugador_jugadorColisionado; // Suscribir al evento
+            jugadorColisionadoHandler += ObjNaveJugador_jugadorColisionado; // Suscribir al evento
 
             gameTimer.Start(); // Iniciar el temporizador
 
@@ -67,34 +69,39 @@ namespace pryPonceDeLeonMartina
             if (e.KeyCode == Keys.Space)
             {
                 Point posicionNave = objNaveJugador.ImgNave.Location;
-                objNaveJugador.Disparar(posicionNave);
+                Disparar(posicionNave);
             }
             else if (e.KeyCode == Keys.Right)
             {
-                objNaveJugador.MoverNave(6, 0); // Mover a la derecha
+                MoverNave(6, 0); // Mover a la derecha
             }
             else if (e.KeyCode == Keys.Left)
             {
-                objNaveJugador.MoverNave(-6, 0); // Mover a la izquierda
+                MoverNave(-6, 0); // Mover a la izquierda
             }
             else if (e.KeyCode == Keys.Up)
             {
-                objNaveJugador.MoverNave(0, -6); // Mover hacia arriba
+                MoverNave(0, -6); // Mover hacia arriba
             }
             else if (e.KeyCode == Keys.Down)
             {
-                objNaveJugador.MoverNave(0, 6); // Mover hacia abajo
+                MoverNave(0, 6); // Mover hacia abajo
+            }
+
+            if(e.KeyCode == Keys.Escape)
+            {
+                this.Hide();
             }
         }
         private void GameLoop(object sender, EventArgs e)
         {
             // Lógica del juego
             MoverEnemigos();
-            objNaveJugador.MoverBala(enemigos); // Mueve la bala del jugador y verifica colisiones
+            MoverBala(enemigos); // Mueve la bala del jugador y verifica colisiones
                                                // Verificar que objJefe no sea null antes de llamar a sus métodos
             if (objJefe != null)
             {
-                objJefe.MoverBalaJefe(jugadores); // Mueve la bala del jefe y verifica colisiones
+                MoverBalaJefe(jugadores); // Mueve la bala del jefe y verifica colisiones
             }
         }
         private void gameOver()
@@ -123,7 +130,7 @@ namespace pryPonceDeLeonMartina
         }
         private void MoverEnemigos()
         {
-            List<PictureBox> enemigosEliminados = new List<PictureBox>(); // Lista auxiliar para almacenar enemigos eliminados
+            // Lista auxiliar para almacenar enemigos eliminados
 
             // Crear una copia de la lista de enemigos para evitar modificaciones durante la iteración
             List<PictureBox> copiaEnemigos = new List<PictureBox>(enemigos);
@@ -226,9 +233,8 @@ namespace pryPonceDeLeonMartina
         private void SumarScore()
         {
             score -= 25; // Decrementar el score en 25
-            pgbScore.Value = score; // Actualizar la barra de progreso del score
         }
-        
+
         //private void GuardarDatosEnExcel(string nombreJugador, int score)
         //{
         //    string carpetaScores = "Scores";
@@ -258,6 +264,179 @@ namespace pryPonceDeLeonMartina
         //        MessageBox.Show($"Datos guardados en {rutaCompleta}", "Información");
         //    }
         //}
+
+        private List<PictureBox> balas = new List<PictureBox>();
+
+        public void MoverBala(List<PictureBox> enemigos)
+        {
+            int velocidadBala = 20; // Velocidad de la bala (píxeles por movimiento)
+            List<PictureBox> balasEliminadas = new List<PictureBox>(); // Lista auxiliar para balas eliminadas
+
+            // Crear una copia de la lista de balas para evitar modificaciones durante la iteración
+            List<PictureBox> copiaBalas = new List<PictureBox>(balas);
+
+            for (int i = copiaBalas.Count - 1; i >= 0; i--)
+            {
+                PictureBox bala = copiaBalas[i]; // Obtener la bala actual
+
+                if (bala != null && bala.Visible)
+                {
+                    bala.Top -= velocidadBala; // Mover la bala hacia arriba
+
+                    if (bala.Top + bala.Height < 0)
+                    {
+                        bala.Dispose(); // Eliminar la bala si sale de la pantalla
+                        balasEliminadas.Add(bala); // Agregar a la lista de eliminados
+                        continue; // Pasar a la siguiente iteración del bucle
+                    }
+
+                    foreach (PictureBox enemigo in enemigos)
+                    {
+                        if (enemigo != null && bala.Bounds.IntersectsWith(enemigo.Bounds))
+                        {
+                            enemigo.Visible = false; // Ocultar enemigo en lugar de eliminarlo
+                            bala.Visible = false; // Ocultar la bala
+                            balasEliminadas.Add(bala);
+                            enemigosEliminados.Add(enemigo);
+                            pgbScore.Value += 25;// Agregar a la lista de eliminados
+
+                            break; // Salir del bucle al eliminar un enemigo
+                        }
+                    }
+
+                    foreach (PictureBox enemigoEliminado in enemigosEliminados)
+                    {
+                        enemigoEliminado.Dispose();
+                        enemigos.Remove(enemigoEliminado);
+                    }
+                }
+            }
+
+            // Eliminar las balas que deben ser removidas de la lista original
+            foreach (PictureBox balaEliminada in balasEliminadas)
+            {
+                balas.Remove(balaEliminada);
+            }
+
+
+        }
+
+
+        public void Disparar(Point posicion)
+        {
+            PictureBox nuevaBala = new PictureBox();
+            nuevaBala.SizeMode = PictureBoxSizeMode.StretchImage;
+            nuevaBala.ImageLocation = "https://w7.pngwing.com/pngs/107/369/png-transparent-bank-cash-coin-dollar-money-payment-money-related-icon.png";
+            nuevaBala.Visible = true;
+            nuevaBala.Size = new Size(10, 20); // Tamaño de la bala
+
+            // Posición de la nueva bala
+            nuevaBala.Location = new Point(posicion.X + objNaveJugador.ImgNave.Width / 2 - nuevaBala.Width / 2, posicion.Y);
+
+            Form formulario = objNaveJugador.ImgNave.FindForm();
+            formulario.Controls.Add(nuevaBala);
+
+            balas.Add(nuevaBala); // Agregar la nueva bala a la lista de balas
+        }
+
+        public void DispararBalaJefe()
+        {
+            PictureBox nuevaBala = new PictureBox();
+            nuevaBala.SizeMode = PictureBoxSizeMode.StretchImage;
+            nuevaBala.ImageLocation = "https://w7.pngwing.com/pngs/107/369/png-transparent-bank-cash-coin-dollar-money-payment-money-related-icon.png";
+            nuevaBala.Size = new Size(10, 20); // Tamaño de la bala
+
+            // Posición de la nueva bala (disparo hacia abajo desde el jefe)
+            nuevaBala.Location = new Point(PosX + objNaveJugador.ImgNave.Width / 2 - nuevaBala.Width / 2, PosY + objNaveJugador.ImgNave.Height);
+
+            Form formulario = objNaveJugador.ImgNave.FindForm();
+            formulario.Controls.Add(nuevaBala);
+            balas.Add(nuevaBala); // Agregar la nueva bala a la lista de balas del jefe
+        }
+
+        public void MoverBalaJefe(List<PictureBox> jugadores)
+        {
+            int velocidadBalaJefe = 10; // Velocidad de la bala del jefe (píxeles por movimiento)
+            List<PictureBox> balasEliminadas = new List<PictureBox>(); // Lista auxiliar para balas eliminadas
+
+            // Crear una copia de la lista de balas del jefe para evitar modificaciones durante la iteración
+            List<PictureBox> copiaBalasJefe = new List<PictureBox>(balas);
+
+            foreach (PictureBox bala in copiaBalasJefe)
+            {
+                if (bala != null && bala.Visible)
+                {
+                    bala.Top += velocidadBalaJefe; // Mover la bala del jefe hacia abajo
+
+                    if (bala.Top > objNaveJugador.ImgNave.Parent.Height)
+                    {
+                        bala.Dispose(); // Eliminar la bala si sale de la pantalla
+                        balasEliminadas.Add(bala); // Agregar a la lista de eliminados
+                        continue; // Pasar a la siguiente iteración del bucle
+                    }
+
+                    foreach (PictureBox jugador in jugadores)
+                    {
+                        if (jugador != null && bala.Bounds.IntersectsWith(jugador.Bounds))
+                        {
+                            // Colisión de la bala del jefe con la nave del jugador
+                            jugadorColisionadoHandler?.Invoke(this, EventArgs.Empty);
+                            bala.Dispose(); // Eliminar la bala al colisionar
+                            balasEliminadas.Add(bala); // Agregar a la lista de eliminados
+                            break; // Salir del bucle al eliminar la bala
+                        }
+                    }
+                }
+            }
+
+            // Eliminar las balas que deben ser removidas de la lista original
+            foreach (PictureBox balaEliminada in balasEliminadas)
+            {
+                balas.Remove(balaEliminada);
+            }
+        }
+
+        public void MoverNave(int deltaX, int deltaY)
+        {
+            // Obtener la nueva posición propuesta
+            int nuevaX = PosX + deltaX;
+            int nuevaY = PosY + deltaY;
+
+            // Limitar el movimiento hacia abajo (solo si se va a mover hacia abajo)
+            if (deltaY > 0 && nuevaY + objNaveJugador.ImgNave.Height > objNaveJugador.ImgNave.Parent.Height)
+            {
+                nuevaY = objNaveJugador.ImgNave.Parent.Height - objNaveJugador.ImgNave.Height;
+            }
+
+            // Actualizar la posición solo si está dentro de los límites
+            if (nuevaX >= 0 && nuevaX + objNaveJugador.ImgNave.Width <= objNaveJugador.ImgNave.Parent.Width &&
+                nuevaY >= 0 && nuevaY + objNaveJugador.ImgNave.Height <= objNaveJugador.ImgNave.Parent.Height)
+            {
+                PosX = nuevaX;
+                PosY = nuevaY;
+                objNaveJugador.ImgNave.Location = new Point(PosX, PosY);
+            }
+        }
+
+
+
+        public void MoverJefe(int deltaX)
+        {
+            // Movimiento del jefe de lado a lado
+            int nuevaX = PosX + deltaX;
+
+            // Limitar el movimiento dentro de los límites del formulario
+            if (nuevaX >= 0 && nuevaX + objNaveJugador.ImgNave.Width <= objNaveJugador.ImgNave.Parent.Width)
+            {
+                PosX = nuevaX;
+                objNaveJugador.ImgNave.Location = new Point(PosX, PosY);
+            }
+        }
+
+        public int PosX { get; set; }  // Propiedad para la posición X
+        public int PosY { get; set; }  // Propiedad para la posición Y
+
+        public event EventHandler jugadorColisionadoHandler;
     }
 
 }
