@@ -38,7 +38,8 @@ namespace pryPonceDeLeonMartina
             Nombre = "Jugador";           
             Score = 0;
 
-            ImgNave.Image = Properties.Resources.enemigos;
+            //Imagen de la nave
+            ImgNave.Image = Properties.Resources.Nave;
             ImgNave.SizeMode = PictureBoxSizeMode.StretchImage;
             
             //ImgNave.ImageLocation = "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQgByBT5IiAT_a2x9pUVb4VMoOrlzHH7Jrzj-HB5jzHlR4lNLMS";
