@@ -18,17 +18,22 @@ namespace pryPonceDeLeonMartina
     {
         private clsNave objNaveJugador;
         private clsNave objJefe; // Objeto para el jefe
-        private List<PictureBox> enemigos = new List<PictureBox>();
-        private List<PictureBox> jugadores = new List<PictureBox>(); // Lista que incluye la nave del jugador y posiblemente otras naves de jugadores
+        
+        //variables
         private Timer gameTimer = new Timer();
         private Random rnd = new Random();
         private int vida = 100; // Valor inicial de la vida del jugador
         private int score = 250; // Valor inicial del score
         private string nombreJugador;
 
-        List<PictureBox> enemigosEliminados = new List<PictureBox>();
 
+        //listas
+        List<PictureBox> enemigosEliminados = new List<PictureBox>(); //enemigos eliminados 
+        private List<PictureBox> balas = new List<PictureBox>(); //balas
+        private List<PictureBox> enemigos = new List<PictureBox>(); //enemigos
+        private List<PictureBox> jugadores = new List<PictureBox>(); // Lista que incluye la nave del jugador y posiblemente otras naves de jugadores
 
+        public event EventHandler jugadorColisionadoHandler;
 
         public frmJuego()
         {
@@ -55,6 +60,7 @@ namespace pryPonceDeLeonMartina
 
         }
 
+        //procedimientos y funciones
         private void frmJuego_Load_1(object sender, EventArgs e)
         {
 
@@ -110,7 +116,7 @@ namespace pryPonceDeLeonMartina
             //GuardarDatosEnExcel(nombreJugador, score);
 
             gameTimer.Stop(); // Detener el temporizador
-            MessageBox.Show($"Game Over {nombreJugador}\nScore: {score}\n¡Suerte la Próxima! ", "Juego Terminado");
+            MessageBox.Show($"Game Over {nombreJugador}\nScore: {pgbScore.Value}\n¡Suerte la Próxima! ", "Juego Terminado");
             score = 250; // Restaurar el valor inicial del score
             vida = 100; // Restaurar el valor inicial de la vida
             pgbVida.Value = vida; // Actualizar la barra de progreso de la vida
@@ -235,39 +241,64 @@ namespace pryPonceDeLeonMartina
             score -= 25; // Decrementar el score en 25
         }
 
-        //private void GuardarDatosEnExcel(string nombreJugador, int score)
-        //{
-        //    string carpetaScores = "Scores";
-        //    string rutaScores = Path.Combine(Environment.CurrentDirectory, carpetaScores);
+        //private void levelFinal()
+        //  {
+        //      if ()
+        //      {
+        //          gameTimer.Stop(); // Detener el temporizador
+        //          enemigos.Clear();
+        //          foreach (Control control in Controls)
+        //          {
+        //              if (control is PictureBox && control != objNaveJugador.ImgNave)
+        //              {
+        //                  control.Dispose();
+        //              }
+        //          }
+        //          this.Close();
+        //          frmJefe f = new frmJefe();
+        //          f.ShowDialog();
 
-        //    // Verificar si la carpeta "Scores" existe, si no, crearla
-        //    if (!Directory.Exists(rutaScores))
-        //    {
-        //        Directory.CreateDirectory(rutaScores);
-        //    }
+        //      }
+            //vida -= 25; // Decrementar la vida en 25
+            //pgbVida.Value = vida; // Actualizar la barra de progreso de la vida
+            //if (vida <= 0)
+            //{
+            //    gameOver();
+            //}
+       
+    //  }
 
-        //    string nombreArchivo = $"DatosJugador_{DateTime.Now.ToString("yyyyMMdd_HHmmss")}.xlsx";
-        //    string rutaCompleta = Path.Combine(rutaScores, nombreArchivo);
+    //private void GuardarDatosEnExcel(string nombreJugador, int score)
+    //{
+    //    string carpetaScores = "Scores";
+    //    string rutaScores = Path.Combine(Environment.CurrentDirectory, carpetaScores);
 
-        //    using (ExcelPackage excelPackage = new ExcelPackage())
-        //    {
-        //        ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets.Add("DatosJugador");
+    //    // Verificar si la carpeta "Scores" existe, si no, crearla
+    //    if (!Directory.Exists(rutaScores))
+    //    {
+    //        Directory.CreateDirectory(rutaScores);
+    //    }
 
-        //        worksheet.Cells[1, 1].Value = "Nombre";
-        //        worksheet.Cells[1, 2].Value = "Score";
+    //    string nombreArchivo = $"DatosJugador_{DateTime.Now.ToString("yyyyMMdd_HHmmss")}.xlsx";
+    //    string rutaCompleta = Path.Combine(rutaScores, nombreArchivo);
 
-        //        worksheet.Cells[2, 1].Value = nombreJugador;
-        //        worksheet.Cells[2, 2].Value = score;
+    //    using (ExcelPackage excelPackage = new ExcelPackage())
+    //    {
+    //        ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets.Add("DatosJugador");
 
-        //        excelPackage.SaveAs(new FileInfo(rutaCompleta));
+    //        worksheet.Cells[1, 1].Value = "Nombre";
+    //        worksheet.Cells[1, 2].Value = "Score";
 
-        //        MessageBox.Show($"Datos guardados en {rutaCompleta}", "Información");
-        //    }
-        //}
+    //        worksheet.Cells[2, 1].Value = nombreJugador;
+    //        worksheet.Cells[2, 2].Value = score;
 
-        private List<PictureBox> balas = new List<PictureBox>();
+    //        excelPackage.SaveAs(new FileInfo(rutaCompleta));
 
-        public void MoverBala(List<PictureBox> enemigos)
+    //        MessageBox.Show($"Datos guardados en {rutaCompleta}", "Información");
+    //    }
+    //}
+
+    public void MoverBala(List<PictureBox> enemigos)
         {
             int velocidadBala = 20; // Velocidad de la bala (píxeles por movimiento)
             List<PictureBox> balasEliminadas = new List<PictureBox>(); // Lista auxiliar para balas eliminadas
@@ -321,12 +352,11 @@ namespace pryPonceDeLeonMartina
 
         }
 
-
         public void Disparar(Point posicion)
         {
             PictureBox nuevaBala = new PictureBox();
             nuevaBala.SizeMode = PictureBoxSizeMode.StretchImage;
-            nuevaBala.ImageLocation = "https://w7.pngwing.com/pngs/107/369/png-transparent-bank-cash-coin-dollar-money-payment-money-related-icon.png";
+            nuevaBala.ImageLocation = "https://i.postimg.cc/FHPqQ4kJ/bullet.png";
             nuevaBala.Visible = true;
             nuevaBala.Size = new Size(10, 20); // Tamaño de la bala
 
@@ -418,8 +448,6 @@ namespace pryPonceDeLeonMartina
             }
         }
 
-
-
         public void MoverJefe(int deltaX)
         {
             // Movimiento del jefe de lado a lado
@@ -436,7 +464,7 @@ namespace pryPonceDeLeonMartina
         public int PosX { get; set; }  // Propiedad para la posición X
         public int PosY { get; set; }  // Propiedad para la posición Y
 
-        public event EventHandler jugadorColisionadoHandler;
+        
     }
 
 }

@@ -23,7 +23,7 @@ namespace pryPonceDeLeonMartina
 
         private Random aleatorioEnemigo = new Random();
 
-
+        //eventos 
         public event EventHandler VidaCambiada; // Evento para notificar cambios en la vida
         public event EventHandler BalaColisionEnemigo; // Evento para notificar colisión bala-enemigo
         public event EventHandler ScoreCambiado;
@@ -41,8 +41,7 @@ namespace pryPonceDeLeonMartina
             //Imagen de la nave
             ImgNave.Image = Properties.Resources.Nave;
             ImgNave.SizeMode = PictureBoxSizeMode.StretchImage;
-            
-            //ImgNave.ImageLocation = "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQgByBT5IiAT_a2x9pUVb4VMoOrlzHH7Jrzj-HB5jzHlR4lNLMS";
+            ImgNave.ImageLocation = "https://i.postimg.cc/QdHLCC3q/Nave.png";
         }
 
         public PictureBox CrearEnemigo()
@@ -56,17 +55,17 @@ namespace pryPonceDeLeonMartina
             {
                 case 0:
                     // imgEnemigo.Image = Properties.Resources.enemigos; 
-                    imgEnemigo.ImageLocation = "https://http2.mlstatic.com/D_NQ_NP_991474-MLA54010614857_022023-O.webp";
+                    imgEnemigo.ImageLocation = "https://i.postimg.cc/FK4fmMtN/inavders.png";
 
 
                     break;
                 case 1:
                     // imgEnemigo.Image = Properties.Resources.enemigos; 
-                    imgEnemigo.ImageLocation = "https://http2.mlstatic.com/D_NQ_NP_991474-MLA54010614857_022023-O.webp";
+                    imgEnemigo.ImageLocation = "https://i.postimg.cc/FK4fmMtN/inavders.png";
                     break;
                 case 2:
                     // imgEnemigo.Image = Properties.Resources.enemigos; 
-                    imgEnemigo.ImageLocation = "https://http2.mlstatic.com/D_NQ_NP_991474-MLA54010614857_022023-O.webp";
+                    imgEnemigo.ImageLocation = "https://i.postimg.cc/FK4fmMtN/inavders.png";
                     break;
             }
 
@@ -82,7 +81,7 @@ namespace pryPonceDeLeonMartina
         {
             PictureBox imgJefe = new PictureBox();
             imgJefe.SizeMode = PictureBoxSizeMode.StretchImage;          
-            imgJefe.ImageLocation = "https://images.aws.nestle.recipes/original/cbff956dfd5f633d0a1ffbea5681d2e9_canelones.jpg"; 
+            imgJefe.ImageLocation = "https://i.postimg.cc/WpHhtFR9/enemigos.png"; 
 
             // Establece las características del jefe
             Vida = 500; // Ejemplo de vida para el jefe
@@ -96,9 +95,6 @@ namespace pryPonceDeLeonMartina
             // Retornar la imagen del jefe configurada
             return imgJefe;
         }
-
-      
-
 
         public void ColisionEnemigo()
         {

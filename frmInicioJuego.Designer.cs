@@ -97,6 +97,7 @@
             btnVerScore.TabIndex = 4;
             btnVerScore.Text = "Ver Scores";
             btnVerScore.UseVisualStyleBackColor = false;
+            btnVerScore.Click += btnVerScore_Click;
             // 
             // btnSalir
             // 

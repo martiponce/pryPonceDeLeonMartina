@@ -26,7 +26,7 @@ namespace pryPonceDeLeonMartina
             {
                 frmJuego frmJuego = new frmJuego();
                 frmJuego.SetNombreJugador(nombre); // Pasar el nombre al formulario principal
-                frmJuego.Show();                
+                frmJuego.Show();
             }
             else
             {
@@ -43,6 +43,12 @@ namespace pryPonceDeLeonMartina
         {
             this.Close();
             frmMain frm = new frmMain();
+            frm.Show();
+        }
+
+        private void btnVerScore_Click(object sender, EventArgs e)
+        {
+            frmTablaScre frm = new frmTablaScre();
             frm.Show();
         }
     }
